@@ -11,7 +11,7 @@
 
 <body>
 
-
+@csrf
     <div class="container mt-5">
         <h2 class="mb-4">comments</h2>
         <div>
@@ -44,7 +44,7 @@
 
 <script type="text/javascript">
     $(function() {
-
+        var HostUrl = window.location.origin;
         var table = $('.yajra-datatable').DataTable({
             processing: true,
             serverSide: true,
@@ -71,8 +71,9 @@
                     render: function(d, t, r, m) {
                         var RowData = r;
                         return `
-                        <a class="btn btn-info" >edit</a>
+                        <a class="btn btn-info" href="${ HostUrl + "/comments/" + RowData.id + "/edit"}">edit</a>
                         `;
+
                     }
                 },
                 {
@@ -80,9 +81,15 @@
                     name: "delete",
                     render: function(d, t, r, m) {
                         var RowData = r;
+                        var TokenValue = $('input[name="_token"]').val();
                         return `
-                        <a class="btn btn-info" >delete</a>
-                        `;
+                    <form action="${HostUrl + "/comments/" + RowData.id}" method="post">
+                       <input type="hidden" name="_token" value="${TokenValue}">
+                       <input type="hidden" name="_method" value="DELETE">
+                       <button type="submit" class="btn btn-danger" title="delete">
+                          <span>Delete</span>
+                       </button>
+                   </form> `;
                     }
                 },
             ]
