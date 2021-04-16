@@ -10,17 +10,17 @@ class ArticleController extends Controller
 {
     public function index()
     {
-          $articles=[];
+        $articles = [];
         if (request()->ajax()) {
             $articles = Article::all();
-          return datatables()->of($articles)->addIndexColumn()->make(true);
-      }
-     
-       return view('articles.index', compact('articles'));
-  }
-       
-     
-    
+            return datatables()->of($articles)->addIndexColumn()->make(true);
+        }
+
+        return view('articles.index', compact('articles'));
+    }
+
+
+
 
 
     public function store(Request $request)
@@ -45,6 +45,7 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
+
         return view('articles.edit', compact('article'));
     }
 
@@ -65,8 +66,14 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
-        $article->delete();
 
-        return redirect()->route('students.index');
+        $datafound = DB::table('Comments')->where('article_id', '=', $article->id)->get();
+        if ($datafound->count() > 0) { 
+            $msg =  "You Can't Delete this Article ";
+            return view('articles.index', compact('msg'));
+           
+        }
+        $article->delete();
+        return redirect()->route('articles.index');
     }
 }

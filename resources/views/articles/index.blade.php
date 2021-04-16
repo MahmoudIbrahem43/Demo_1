@@ -12,6 +12,16 @@
 <body>
 
 
+    @if(!empty($msg))
+    <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong>  {{ $msg}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+
+    @csrf
     <div class="container mt-5">
         <h2 class="mb-4">articles</h2>
         <div>
@@ -44,14 +54,14 @@
 
 <script type="text/javascript">
     $(function() {
-
+        var HostUrl = window.location.origin;
         var table = $('.yajra-datatable').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{route('articles.index')}}",
             columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex'
+                    data: 'id',
+                    name: 'id'
                 },
                 {
                     data: 'author',
@@ -71,8 +81,9 @@
                     render: function(d, t, r, m) {
                         var RowData = r;
                         return `
-                        <a class="btn btn-info" >edit</a>
+                        <a class="btn btn-info" href="${ HostUrl + "/articles/" + RowData.id + "/edit"}">edit</a>
                         `;
+
                     }
                 },
                 {
@@ -80,9 +91,15 @@
                     name: "delete",
                     render: function(d, t, r, m) {
                         var RowData = r;
+                        var TokenValue = $('input[name="_token"]').val();
                         return `
-                        <a class="btn btn-info" >delete</a>
-                        `;
+                    <form action="${HostUrl + "/articles/" + RowData.id}" method="post">
+                       <input type="hidden" name="_token" value="${TokenValue}">
+                       <input type="hidden" name="_method" value="DELETE">
+                       <button type="submit" class="btn btn-danger" title="delete">
+                          <span>Delete</span>
+                       </button>
+                   </form> `;
                     }
                 },
             ]

@@ -48,7 +48,7 @@
         var table = $('.yajra-datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{route('articles.index')}}",
+            ajax: "{{route('comments.index')}}",
             columns: [{
                     data: 'id',
                     name: 'id'

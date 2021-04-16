@@ -2,26 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
-
-
 {
     public function index()
     {
-        $comments = Comment::all();
-        return view('comments.index', compact('comments'));
-    }
+          $comments=[];
+        if (request()->ajax()) {
+            $comments = Comment::all();
+          return datatables()->of($comments)->addIndexColumn()->make(true);
+      }
+     
+       return view('comments.index', compact('comments'));
+  }
+       
+     
+    
 
 
     public function store(Request $request)
     {
+       
         $request->validate([
-            'outher' => 'required',
-            'text' => 'required|unique',
-            
+            'author' => 'required',
+            'text' => 'required',
+            'article_id' => 'required',
 
         ]);
         $comments = Comment::create($request->all());
@@ -31,9 +40,10 @@ class CommentController extends Controller
 
     public function create()
     {
-
-        return view('comments.create');
+        $articles=Article::all();
+        return view('comments.create',compact('articles'));
     }
+
 
 
     public function edit(Comment $comment)
@@ -46,8 +56,8 @@ class CommentController extends Controller
     {
         $request->validate([
             'author' => 'required',
-            'title' => 'required|unique',
-            'content' => 'required',
+            'text' => 'required',
+            'article_id' => 'required',
 
         ]);
 
