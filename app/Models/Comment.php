@@ -10,7 +10,7 @@ class Comment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'outher', 'text','article_id',
+        'auther', 'text','article_id',
     ];
     public function article(){
         return $this->belongsTo('App\Article');
