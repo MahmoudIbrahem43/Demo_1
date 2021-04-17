@@ -68,12 +68,38 @@ class ArticleController extends Controller
     {
 
         $datafound = DB::table('Comments')->where('article_id', '=', $article->id)->get();
-        if ($datafound->count() > 0) { 
+        if ($datafound->count() > 0) {
             $msg =  "You Can't Delete this Article ";
             return view('articles.index', compact('msg'));
-           
         }
         $article->delete();
         return redirect()->route('articles.index');
+    }
+
+
+
+
+    public function deleteArticle(int $id)
+    {
+        $article = Article::where('id', '=', $id)->first();
+
+        $result = [
+            $msg = ""
+        ];
+
+        if ($article == null) {
+            $result["msg"] =  "Article Not found !";
+            return $result;
+        }
+
+        $datafound = DB::table('Comments')->where('article_id', '=', $article->id)->get();
+
+        if ($datafound->count() > 0) {
+            $result["msg"] =  "You Can't Delete this Article ";
+            return $result;
+        }
+
+        $article->delete();
+        return $result;
     }
 }

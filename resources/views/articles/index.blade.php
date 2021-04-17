@@ -4,26 +4,15 @@
 <head>
     <title>articles</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="jquery-ui.min.css">
-    <link href="Scripts/jquery-ui.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="really-simple-jquery-dialog.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-
 
 </head>
 
 <body>
 
 
-    <a href="#" id="showAlert">show Alert</a>
-    <a href="#" id="showConfirm">show Confirm</a>
-    <a href="#" id="showPrompt">show prompt</a>
-
-    <div id="myAlert"></div>
-    <div id="myConfirm"></div>
-    <div id="myPrompt"></div>
 
 
     @if(!empty($msg))
@@ -57,61 +46,24 @@
         </table>
     </div>
 
+
+
 </body>
-<script src="Scripts/jquery-1.10.2.min.js"></script>
-<script src="Scripts/jquery-ui.min.js"></script>
-<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="really-simple-jquery-dialog.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-<script>
-    $('#showAlert').click(function() {
-        $('#myAlert').simpleAlert({
-            message: "hello world"
-        })
-    })
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
-    $('#showConfirm').click(function() {
-        $('#myConfirm').simpleConfirm({
-            message: "Are You Sure ?",
-            success: function() {
-                $('#myAlert').simpleAlert({
-                    message: "success"
-                })
-            },
-            cancel: function() {
-                $('#myAlert').simpleAlert({
-                    message: "cancel!"
-                })
-            }
-        })
-    })
-
-    $('#showPrompt').click(function() {
-        $('#myPrompt').simplePrompt({
-            message: "please input number",
-            success: function(result) {
-                $('myAlert').simpleAlert({
-                    message: "number is :" + result
-                })
-            },
-            cancel: function(result) {
-                $('myAlert').simpleAlert({
-                    message: "cancel ,number: " + result
-                })
-            }
-        })
-    })
-</script>
 
 
 <script type="text/javascript">
+    let table = {};
+
     $(function() {
         var HostUrl = window.location.origin;
-        var table = $('.yajra-datatable').DataTable({
+        table = $('.yajra-datatable').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{route('articles.index')}}",
@@ -149,13 +101,7 @@
                         var RowData = r;
                         var TokenValue = $('input[name="_token"]').val();
                         return `
-                    <form action="${HostUrl + "/articles/" + RowData.id}" method="post">
-                       <input type="hidden" name="_token" value="${TokenValue}">
-                       <input type="hidden" name="_method" value="DELETE">
-                       <button type="submit" class="btn btn-danger" title="delete">
-                          <span>Delete</span>
-                       </button>
-                   </form> `;
+                        <button type="button" class="btn btn-danger btn-flat btn-sm remove-article" data-id="${RowData.id}">delete  </button>`;
                     }
                 },
             ]
@@ -165,8 +111,52 @@
 </script>
 </script>
 
+<script type="text/javascript">
+    $(document).on("click", "button.remove-article", function() {
+        var Host = window.location.origin;
+        var current_object = $(this);
+        var id = current_object.attr('data-id');
+        if (id == null || id == "") {
+            swal("Can't Read Article Id", {
+                icon: "warning",
+            });
+            return;
+        }
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "error",
+            showCancelButton: true,
+            dangerMode: true,
+            cancelButtonClass: '#DD6B55',
+            confirmButtonColor: '#dc3545',
+            confirmButtonText: 'Delete!',
+        }).then((willDelete) => {
+            if (willDelete) {
+
+                $.ajax({
+                    url: Host + "/articles/delete/" + id,
+                    type: "GET",
+                    dataType: 'json',
+                }).done(function(result) {
+                    if (result.msg !== null && result.msg !== "" && result.msg !== undefined) {
+
+                        swal(result.msg, {
+                            icon: "error",
+                        });
+
+                    } else {
+                        // refresh data table 
+                        table.ajax.reload();
+                    }
+                });
 
 
+            }
+        });
+
+    });
+</script>
 
 
 </html>
