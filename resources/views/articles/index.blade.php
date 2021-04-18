@@ -124,7 +124,7 @@
         }
         swal({
             title: "Are you sure?",
-            text: "You will not be able to recover this imaginary file!",
+            text: "You will delete this article!",
             type: "error",
             showCancelButton: true,
             dangerMode: true,
@@ -146,7 +146,7 @@
                         });
 
                     } else {
-                        // refresh data table 
+                       
                         table.ajax.reload();
                     }
                 });

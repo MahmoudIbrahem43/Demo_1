@@ -78,7 +78,6 @@ class ArticleController extends Controller
 
 
 
-
     public function deleteArticle(int $id)
     {
         $article = Article::where('id', '=', $id)->first();
@@ -95,7 +94,7 @@ class ArticleController extends Controller
         $datafound = DB::table('Comments')->where('article_id', '=', $article->id)->get();
 
         if ($datafound->count() > 0) {
-            $result["msg"] =  "You Can't Delete this Article ";
+            $result["msg"] =  "You Can't Delete this Article delete the Comment first";
             return $result;
         }
 
