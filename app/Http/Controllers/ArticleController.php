@@ -10,6 +10,9 @@ class ArticleController extends Controller
 {
     public function index()
     {
+      
+
+
         $articles = [];
         if (request()->ajax()) {
             $articles = Article::all();
@@ -54,7 +57,7 @@ class ArticleController extends Controller
     {
         $request->validate([
             'author' => 'required',
-            'title' => 'required|unique',
+            'title' => 'required',
             'content' => 'required',
 
         ]);

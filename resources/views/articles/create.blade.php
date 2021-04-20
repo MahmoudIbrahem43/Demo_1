@@ -1,35 +1,16 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>new article</title>
+@extends('layouts.layout')
 
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
-    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-<style>
-form label {
-    display: inline-block;
-    width: 100px;
-  }
-  
-  form div {
-    margin-bottom: 10px;
-  }
-  
-  .error {
-    color: red;
-    margin-left: 5px;
-  }
-  
-  label.error {
-    display: inline;
-  }
-</style>
-</head>
+@section('title')
+new Article
+@endsection
+
+
+@section('content')
+@csrf
+
+
+
 
 <body>
 
@@ -47,6 +28,7 @@ form label {
     </div>
 
     <form id="basic-form" action="{{ route('articles.store') }}" method="POST">
+      
         @csrf
 
         <div class="row">
@@ -79,35 +61,13 @@ form label {
 
     </form>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script> -->
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('form[id="basic-form"]').validate({
-                rules: {
-                    author:"required",
-                    title:"required",
-                    content:"required",
-                },
-                messages: {
-                    author: 'This field is required',
-                    title: 'This field is required',
-                    content: 'This field is required',
-                },
-                submitHandler: function(form) {
-                    form.submit();
-                }
-            });
-          
-        });
-    </script>
+    @section('page_js')
+    <script src="{{asset('assets/js/article.js')}}"></script>
+    @endsection
 
 
 
-
-</body>
-
-
-
-</html>
+    @endsection

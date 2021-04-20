@@ -9,6 +9,7 @@ Article INDEX
 @section('content')
 @csrf
 
+
 <!-- main content -->
 <div class="container mt-5">
     <h2 class="mb-4">articles</h2>
@@ -23,6 +24,7 @@ Article INDEX
                 <th>author</th>
                 <th>title</th>
                 <th>content</th>
+                <!-- <th>comment</th> -->
                 <th>#</th>
                 <th>#</th>
             </tr>

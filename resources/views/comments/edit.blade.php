@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>edit comment</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
-    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-
-</head>
-
-<body>
+@extends('layouts.layout')
 
 
-    <div class="row">
+@section('title')
+new Article
+@endsection
+
+
+@section('content')
+@csrf
+
+
+<div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>edit comment</h2>
+                <h2>edit Comment</h2>
             </div>
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('comments.index') }}" title="Go back"> <i class="fas fa-backward "></i> </a>
@@ -25,52 +21,49 @@
         </div>
     </div>
 
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
 
-    <form action="{{ route('comments.update' , $comment->id) }}" method="POST">
+
+    
+
+    <form id="basic-form2" action="{{ route('comments.update' , $comment->id) }}" method="POST">
         @method('PUT')
         @csrf
 
         <div class="row">
 
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>author:</strong>
-                    <input type="text" name="author" class="form-control" placeholder="author" value="{{$comment->author}}">
+                <div>
+                    <label for="author">author:</label>
+                    <input type="text" id="author" name="author" value="{{$comment->author}}" require></input>
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>text:</strong>
-                    <input type="text" name="text" class="form-control" placeholder="text" value="{{$comment->text}}">
+                <div>
+                    <label for="text">text :</label>
+                    <input type="text" id="text" name="text" value="{{$comment->text}}" require></input>
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>article_id:</strong>
-                    <input type="text" name="article_id" class="form-control" placeholder="article_id"  value="{{$comment->article_id}}">
+                <div>
+                    <label for="conarticle_idtent">article_id:</label>
+                    <input type="text" id="article_id" name="article_id"  value="{{$comment->article_id}}"  require></input>
                 </div>
             </div>
-
-
 
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary" onclick="getSelectValues()">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
 
     </form>
-</body>
 
-</html> 
+
+    @section('page_js')
+    <script src="{{asset('assets/js/comment.js')}}"></script>
+    @endsection
+
+
+
+    @endsection

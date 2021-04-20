@@ -1,4 +1,5 @@
 
+
 //   datatable script
 let table = {};
 $(function () {
@@ -9,7 +10,7 @@ $(function () {
 
 
         ajax: {
-            url: HostUrl + "/articles",
+            url: HostUrl + "/settings",
             type: "GET",
         },
         columns: [{
@@ -17,28 +18,21 @@ $(function () {
             name: 'id'
         },
         {
-            data: 'author',
-            name: 'author'
+            data: 'site_name',
+            name: 'site_name'
         },
         {
-            data: 'title',
-            name: 'title'
+            data: 'logo',
+            name: 'logo'
         },
-        {
-            data: 'content',
-            name: 'content'
-        },
-        // {
-        //     data: 'text',
-        //     name: 'comment'
-        // },
+       
         {
             data: "edit",
             name: "edit",
             render: function (d, t, r, m) {
                 var RowData = r;
                 return `
-                         <a class="btn btn-info" href="${HostUrl + "/articles/" + RowData.id + "/edit"}">edit</a>
+                         <a class="btn btn-info" href="${HostUrl + "/settings/" + RowData.id + "/edit"}">edit</a>
                          `;
 
             }
@@ -50,7 +44,7 @@ $(function () {
                 var RowData = r;
                 var TokenValue = $('input[name="_token"]').val();
                 return `
-                         <button type="button" class="btn btn-danger btn-flat btn-sm remove-article" data-id="${RowData.id}">delete  </button>`;
+                     <button type="button" class="btn btn-danger btn-flat btn-sm remove-article" data-id="${RowData.id}">delete  </button>`;
             }
         },
         ]
@@ -60,21 +54,20 @@ $(function () {
 
 
 
-
 // jquery confirm script
-$(document).on("click", "button.remove-article", function () {
+$(document).on("click", "button.remove-setting", function () {
     var Host = window.location.origin;
     var current_object = $(this);
     var id = current_object.attr('data-id');
     if (id == null || id == "") {
-        swal("Can't Read Article Id", {
+        swal("Can't Read setting Id", {
             icon: "warning",
         });
         return;
     }
     swal({
         title: "Are you sure?",
-        text: "You will delete this article!",
+        text: "You will delete this setting!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -85,7 +78,7 @@ $(document).on("click", "button.remove-article", function () {
         if (willDelete) {
 
             $.ajax({
-                url: Host + "/articles/delete/" + id,
+                url: Host + "/settings/delete/" + id,
                 type: "GET",
                 dataType: 'json',
             }).done(function (result) {
@@ -108,17 +101,17 @@ $(document).on("click", "button.remove-article", function () {
 });
 
 
+
 $(document).ready(function() {
     $('form[id="basic-form"]').validate({
         rules: {
-            author:"required",
-            title:"required",
-            content:"required",
+            site_name:"required",
+            logo:"required",
+            
         },
         messages: {
-            author: 'This field is required',
-            title: 'This field is required',
-            content: 'This field is required',
+            site_name: 'This field is required',
+            logo: 'This field is required',       
         },
         submitHandler: function(form) {
             form.submit();
@@ -126,4 +119,3 @@ $(document).ready(function() {
     });
   
 });
-

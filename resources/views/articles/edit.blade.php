@@ -1,17 +1,17 @@
-  <!DOCTYPE html>
-<html>
+@extends('layouts.layout')
 
-<head>
-    <title>edit article</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
-    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-</head>
+@section('title')
+new Article
+@endsection
 
-<body>
+
+@section('content')
+@csrf
+
+
+
+
 
 
     <div class="row">
@@ -25,18 +25,47 @@
         </div>
     </div>
 
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
 
-    <form action="{{ route('articles.update' , $article->id) }}" method="POST">
+
+    
+
+    <form id="basic-form" action="{{ route('articles.update' , $article->id) }}" method="POST">
+        @method('PUT')
+        @csrf
+
+        <div class="row">
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div>
+                    <label for="author">author:</label>
+                    <input type="text" id="author" name="author" value="{{$article->author}}" require></input>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div>
+                    <label for="title">title :</label>
+                    <input type="text" id="title" name="title" value="{{$article->title}}" require></input>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div>
+                    <label for="content">content:</label>
+                    <input type="text" id="content" name="content"  value="{{$article->content}}"  require></input>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+    </form>
+
+
+
+    <!-- <form action="{{ route('articles.update' , $article->id) }}" method="POST">
         @method('PUT')
         @csrf
 
@@ -70,18 +99,15 @@
             </div>
         </div>
 
-    </form>
+    </form> -->
+
+
+    @section('page_js')
+    <script src="{{asset('assets/js/article.js')}}"></script>
+    @endsection
 
 
 
+    @endsection
 
 
-
-
-
-
-
-
-</body>
-
-</html> 

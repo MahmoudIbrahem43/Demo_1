@@ -9,7 +9,7 @@ $(function () {
 
 
         ajax: {
-            url: HostUrl + "/articles",
+            url: HostUrl + "/comments",
             type: "GET",
         },
         columns: [{
@@ -21,24 +21,20 @@ $(function () {
             name: 'author'
         },
         {
-            data: 'title',
-            name: 'title'
+            data: 'text',
+            name: 'text'
         },
         {
-            data: 'content',
-            name: 'content'
+            data: 'article_id',
+            name: 'article_id'
         },
-        // {
-        //     data: 'text',
-        //     name: 'comment'
-        // },
         {
             data: "edit",
             name: "edit",
             render: function (d, t, r, m) {
                 var RowData = r;
                 return `
-                         <a class="btn btn-info" href="${HostUrl + "/articles/" + RowData.id + "/edit"}">edit</a>
+                         <a class="btn btn-info" href="${HostUrl + "/comments/" + RowData.id + "/edit"}">edit</a>
                          `;
 
             }
@@ -71,7 +67,8 @@ $(document).on("click", "button.remove-article", function () {
             icon: "warning",
         });
         return;
-    }
+    }  
+
     swal({
         title: "Are you sure?",
         text: "You will delete this article!",
@@ -85,7 +82,7 @@ $(document).on("click", "button.remove-article", function () {
         if (willDelete) {
 
             $.ajax({
-                url: Host + "/articles/delete/" + id,
+                url: Host + "/comments/delete/" + id,
                 type: "GET",
                 dataType: 'json',
             }).done(function (result) {
@@ -109,16 +106,16 @@ $(document).on("click", "button.remove-article", function () {
 
 
 $(document).ready(function() {
-    $('form[id="basic-form"]').validate({
+    $('form[id="basic-form2"]').validate({
         rules: {
             author:"required",
-            title:"required",
-            content:"required",
+            text:"required",
+            article_id:"required",
         },
         messages: {
             author: 'This field is required',
-            title: 'This field is required',
-            content: 'This field is required',
+            text: 'This field is required',
+            article_id: 'This field is required',
         },
         submitHandler: function(form) {
             form.submit();

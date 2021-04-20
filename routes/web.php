@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Setting;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +27,12 @@ Route::resource('articles', ArticleController::class);
 Route::resource('comments', CommentController::class);
 
 
+
+
 Route::get('/articles/delete/{id}', [ ArticleController::class, 'deleteArticle']); //->name('articles.deleteArticle');
+
+Route::get('/comments/delete/{id}', [ CommentController::class, 'deleteComment']);
+
+Route::get('/upload-file', [SettingController::class, 'createForm']);
+
+Route::post('/upload-file', [SettingController::class, 'fileUpload'])->name('fileUpload');

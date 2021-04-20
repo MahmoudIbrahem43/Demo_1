@@ -11,22 +11,18 @@ class CommentController extends Controller
 {
     public function index()
     {
-          $comments=[];
+        $comments = [];
         if (request()->ajax()) {
             $comments = Comment::all();
-          return datatables()->of($comments)->addIndexColumn()->make(true);
-      }
-     
-       return view('comments.index', compact('comments'));
-  }
-       
-     
-    
+            return datatables()->of($comments)->addIndexColumn()->make(true);
+        }
 
+        return view('comments.index', compact('comments'));
+    }
 
     public function store(Request $request)
     {
-       
+
         $request->validate([
             'author' => 'required',
             'text' => 'required',
@@ -40,8 +36,8 @@ class CommentController extends Controller
 
     public function create()
     {
-        $articles=Article::all();
-        return view('comments.create',compact('articles'));
+        $articles = Article::all();
+        return view('comments.create', compact('articles'));
     }
 
 
@@ -70,5 +66,23 @@ class CommentController extends Controller
     {
         $comment->delete();
         return redirect()->route('comments.index');
+    }
+
+
+    public function deleteComment(int $id)
+    {
+        $comment = Comment::where('id', '=', $id)->first();
+
+        $result = [
+            $msg = ""
+        ];
+
+        if ($comment == null) {
+            $result["msg"] =  "comment Not found !";
+            return $result;
+        }
+
+        $comment->delete();
+        return $result;
     }
 }
