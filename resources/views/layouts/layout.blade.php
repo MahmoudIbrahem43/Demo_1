@@ -12,9 +12,10 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+
+                   <img width="80" height="80" src="{{App\Http\Controllers\SettingController::showSetting()!=null?asset("uploaded/".App\Http\Controllers\SettingController::showSetting()->logo):""}}"/>
                 </div>
-                <div class="sidebar-brand-text mx-3">Application 1</div>
+                <div class="sidebar-brand-text mx-3">{{App\Http\Controllers\SettingController::showSetting()!=null?App\Http\Controllers\SettingController::showSetting()->name:""}}</div>
             </a>
 
             <!-- Divider -->
@@ -74,7 +75,7 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="{{route('fileUpload')}}">show</a>
+                        <a class="collapse-item" href="{{route('fileUpload')}}">new</a>
                         
                    
                     </div>
@@ -211,7 +212,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="">
+                                        <img class="rounded-circle"  src="{{asset('assets/img/undraw_profile_1.svg')}}"alt="">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
@@ -222,7 +223,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="">
+                                        <img class="rounded-circle" src="{{asset('assets/img/undraw_profile_2.svg')}}"alt="">
                                         <div class="status-indicator"></div>
                                     </div>
                                     <div>
@@ -233,7 +234,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="">
+                                        <img class="rounded-circle" src="{{asset('assets/img/undraw_profile_3.svg')}} " alt="">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
@@ -262,7 +263,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Article</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Profile</span>
                                 <img class="img-profile rounded-circle"  src="{{asset('assets/img/undraw_profile.svg')}} ">
                             </a>
                             <!-- Dropdown - User Information -->
