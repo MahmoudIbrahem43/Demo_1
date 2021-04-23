@@ -9,7 +9,12 @@ new Article
 @section('content')
 @csrf
 
-
+<style>
+    .error {
+        color: red;
+        font-size: 19px;
+    }
+</style>
 
 
 <body>
@@ -28,31 +33,34 @@ new Article
     </div>
 
     <form id="basic-form" action="{{ route('articles.store') }}" method="POST">
-      
+
         @csrf
 
         <div class="row">
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div>
-                    <label for="author">author:</label>
-                    <input type="text" id="author" name="author" require></input>
-                </div>
-            </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
+
+            <div class="form-group">
+                <div>
+                    <label for="author">Author :</label>
+                    <input type="text" name="author" class="form-control" id="author" placeholder="author" />
+                    <small id="author" class="form-text text-muted"></small>
+                </div>
+
                 <div>
                     <label for="title">title :</label>
-                    <input type="text" id="title" name="title" require></input>
+                    <input type="text" name="title" class="form-control" id="title" placeholder="title" />
+                    <small id="title" class="form-text text-muted"></small>
                 </div>
+
+                <div>
+                    <label for="content">content :</label>
+                    <input type="text" name="content" class="form-control" id="content" placeholder="content" />
+                    <small id="content" class="form-text text-muted"></small>
+                </div>
+
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div>
-                    <label for="content">content:</label>
-                    <input type="text" id="content" name="content" require></input>
-                </div>
-            </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>

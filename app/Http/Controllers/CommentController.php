@@ -56,7 +56,7 @@ class CommentController extends Controller
             'article_id' => 'required',
 
         ]);
-
+        // $articles = Article::all();
         $comment->update($request->all());
         return redirect()->route('comments.index');
     }

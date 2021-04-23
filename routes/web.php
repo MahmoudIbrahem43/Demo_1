@@ -37,4 +37,3 @@ Route::get('/upload-file', [SettingController::class, 'createForm']);
 
 Route::post('/upload-file', [SettingController::class, 'fileUpload'])->name('fileUpload');
 
-// Route::get('/upload-file', [SettingController::class, 'showSetting'])->name('showSettings');

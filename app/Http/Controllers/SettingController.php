@@ -27,25 +27,7 @@ class SettingController extends Controller
           if(!$setting){
             $setting = new Setting;
           }
-
-       
         $name = $req->name;
-        // if ($req->file()) {
-
-        //     $logo = time() . '_' . $req->file->getClientOriginalName();
-        //     $logo = $req->file('file')->storeAs('uploads', $logo, 'public');
-
-
-        //     $setting->name = $name;
-        //     $setting->logo = 'public/imgs/' . $logo;
-        //     $setting->save();
-
-        //     return back()
-        //         ->with('success', 'File has been uploaded.')
-        //         ->with('file', $logo);
-        // }
-
-
         if (request('logo')) {
             $file_extension = request('logo')->getClientOriginalExtension();
             $file_name = "logo" . time() . '.' . $file_extension;

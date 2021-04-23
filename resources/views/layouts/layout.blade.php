@@ -13,9 +13,9 @@
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
 
-                   <img width="80" height="80" src="{{App\Http\Controllers\SettingController::showSetting()!=null?asset("uploaded/".App\Http\Controllers\SettingController::showSetting()->logo):""}}"/>
+                   <img width="80" height="80" src="{{App\Http\Controllers\SettingController::showSetting()!=null?asset("uploaded/".App\Http\Controllers\SettingController::showSetting()->logo):""}}" />
                 </div>
-                <div class="sidebar-brand-text mx-3">{{App\Http\Controllers\SettingController::showSetting()!=null?App\Http\Controllers\SettingController::showSetting()->name:""}}</div>
+                <div class="sidebar-brand-text mx-3">{{App\Http\Controllers\SettingController::showSetting()!=null?App\Http\Controllers\SettingController::showSetting()->name:""}} </div>
             </a>
 
             <!-- Divider -->
@@ -31,12 +31,10 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <!-- <div class="sidebar-heading">
-                Interface
-            </div> -->
+          
 
             <!-- Nav Item - Pages Collapse Menu -->
+            
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
@@ -53,11 +51,11 @@
 
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Comment</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item"  href="{{ route('comments.index') }}">All Comments</a>
